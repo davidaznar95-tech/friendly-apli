@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NYC 2026">
+<meta name="theme-color" content="#111214">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>NYC · 23–29 agosto 2026</title>
+<style>
+:root{--ink:#111214;--paper:#fff;--mu:#888;--hr:#e8e8e8}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.45;overflow-x:hidden;padding-top:env(safe-area-inset-top)}
+button,input,select{font-family:inherit;outline:none}
+::-webkit-scrollbar{display:none}
+.hdr{padding:14px 16px 10px;border-bottom:3px solid var(--ink);position:sticky;top:0;background:#fff;z-index:10}
+.hdr-r{display:flex;justify-content:space-between;align-items:flex-start}
+.kk{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mu)}
+.hdr h1{font-size:21px;font-weight:900;letter-spacing:-.02em;margin:2px 0 0;line-height:1.1}
+.hdr .bs{display:flex;gap:4px;flex-wrap:wrap}
+.hdr .b{background:none;color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:4px 8px;font-size:9px;font-weight:800;cursor:pointer;white-space:nowrap}
+.hdr .b.on{background:var(--ink);color:#fff}
+.sync-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:4px;vertical-align:middle}
+.sync-on{background:#6CBE45;animation:pulse 2s infinite}
+.sync-off{background:#EE352E}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.pb{margin-top:8px;display:flex;align-items:center;gap:8px}
+.pb .t{flex:1;height:4px;background:#eee;border-radius:2px;overflow:hidden}
+.pb .f{height:100%;background:var(--ink);border-radius:2px;transition:width .4s}
+.pb span{font-size:11px;font-weight:700;color:#999}
+.pn{padding:12px 16px;border-bottom:1px solid var(--hr)}
+.pn-bk{background:#FFFDE7}.pn-ex{background:#f9fafb}.pn-cfg{background:#f5f5ff}
+.pn h3{font-size:12px;font-weight:800;margin-bottom:6px}
+.bi{font-size:12px;padding:4px 0;display:flex;gap:6px;align-items:flex-start;cursor:pointer}
+.bi.done-bk{opacity:.4;text-decoration:line-through}
+.pls{display:flex;gap:2px;overflow-x:auto;padding:7px 12px 5px;border-bottom:1px solid var(--hr);position:sticky;top:66px;background:#fff;z-index:9;scrollbar-width:none}
+.pl{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;padding:5px 5px 9px;cursor:pointer;min-width:48px;position:relative}
+.pl .ci{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;transition:all .2s}
+.pl .lb{font-size:8px;font-weight:700}
+.pl .mc{position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:20px;height:3px;border-radius:2px;background:#e8e8e8;overflow:hidden}
+.pl .mf{height:100%;border-radius:2px}
+.dc{padding:12px 16px 90px;min-height:55vh}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px}
+.dh h2{font-size:17px;font-weight:900;line-height:1.15}
+.dh .su{font-size:11px;color:#999;margin-top:1px}
+.dp{display:flex;align-items:center;gap:8px;margin:6px 0 4px}
+.dp .t{flex:1;height:3px;background:#eee;border-radius:2px;overflow:hidden}
+.dp .f{height:100%;border-radius:2px;transition:width .3s}
+.dp span{font-size:10px;font-weight:700;color:#bbb}
+.now-line{display:flex;align-items:center;gap:6px;padding:6px 0;margin-left:22px}
+.now-dot{width:8px;height:8px;border-radius:50%;background:#EE352E;animation:pulse 2s infinite}
+.now-lbl{font-size:10px;font-weight:700;color:#EE352E}
+.st{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid #f5f5f5;transition:opacity .25s}
+.st.dn{opacity:.35}
+.st .le{flex:0 0 44px;display:flex;flex-direction:column;align-items:center;padding-top:1px}
+.st .tm{font-size:9px;font-weight:700;color:#bbb;letter-spacing:.04em;margin-bottom:4px}
+.st .ck{width:22px;height:22px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;padding:0;background:transparent}
+.st .ri{flex:1;min-width:0}
+.st .nr{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.st a.nm{font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;padding-bottom:1px}
+.st span.nm{font-size:14px;font-weight:700;color:var(--ink);padding-bottom:1px}
+.st .tg{font-size:8px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 5px}
+.st .cst{font-size:8px;font-weight:700;color:#aaa;border:1px solid #ddd;border-radius:3px;padding:1px 4px}
+.st .nt{font-size:12px;color:#666;margin-top:2px;line-height:1.4}
+.st .lnk{font-size:11px;margin-top:3px}
+.st .lnk a{color:#0039A6;text-decoration:none;border-bottom:1px solid #0039A622}
+.st .ac{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.st .ac button{background:none;border:none;padding:0;font-size:10px;color:#bbb;cursor:pointer}
+.st .ac .dl{color:#daa}
+.st .ac .dir{color:#0039A6}
+.ro{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.ro button{background:none;border:none;color:#ccc;font-size:11px;cursor:pointer;padding:0;line-height:1}
+.mv{margin-top:6px;padding:8px;background:#f8f8f4;border-radius:8px}
+.mv .tt{font-size:11px;font-weight:700;margin-bottom:6px}
+.mv .op{display:flex;flex-wrap:wrap;gap:4px}
+.mv .op button{font-size:10px;font-weight:700;padding:5px 10px;border:none;border-radius:6px;cursor:pointer}
+.ef{display:flex;flex-direction:column;gap:5px}
+.ef input{font-size:11px;padding:5px 6px;border-radius:5px;outline:none}
+.ef .r{display:flex;gap:5px}
+.ef .bb{display:flex;gap:5px}
+.ef .bb button{flex:1;border:none;border-radius:6px;padding:6px;font-size:11px;font-weight:700;cursor:pointer}
+.ab{width:100%;padding:12px;margin-top:4px;background:none;border:2px dashed #ddd;border-radius:8px;color:#aaa;font-size:12px;font-weight:700;cursor:pointer}
+.af{padding:12px 0;border-bottom:1px solid #f5f5f5}
+.af .tt{font-size:12px;font-weight:800;margin-bottom:6px}
+.af input{font-size:11px;padding:6px 7px;border-radius:6px;outline:none}
+.af .r{display:flex;gap:5px;margin-bottom:5px}
+.af .fl{width:100%;margin-bottom:6px}
+.af .bb{display:flex;gap:5px}
+.af .bb button{flex:1;border:none;border-radius:7px;padding:8px;font-weight:700;cursor:pointer}
+.et{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.et .l{font-size:13px;font-weight:800}
+.et .v{font-size:18px;font-weight:900}
+.et .v2{font-size:13px;font-weight:700;color:#999;margin-left:6px}
+.eb{display:flex;gap:3px;margin-bottom:10px}
+.eb .c{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.eb .br{width:100%;height:26px;background:#eee;border-radius:3px;position:relative;overflow:hidden}
+.eb .bf{position:absolute;bottom:0;width:100%;border-radius:3px;transition:height .3s}
+.eb .dl{font-size:8px;font-weight:700;color:#aaa}
+.ecs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.ecs span{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+.ei{display:flex;gap:5px;margin-bottom:7px}
+.ei input{border:2px solid #ddd;border-radius:7px;outline:none}
+.ei .a{flex:0 0 62px;font-size:13px;font-weight:700;padding:6px 7px;text-align:right}
+.ei .d{flex:1;font-size:11px;padding:6px 7px;min-width:0}
+.ei .btn{flex:0 0 auto;background:#111;color:#fff;border:none;border-radius:7px;padding:0 12px;font-size:13px;font-weight:800;cursor:pointer}
+.ecb{display:flex;gap:4px;overflow-x:auto;margin-bottom:8px;padding-bottom:2px;scrollbar-width:none}
+.ecb button{flex:0 0 auto;font-size:9px;font-weight:700;padding:3px 7px;border-radius:5px;cursor:pointer;white-space:nowrap}
+.el{max-height:160px;overflow-y:auto}
+.edl{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 0 2px}
+.er{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f2f2f2}
+.er .i{display:flex;align-items:center;gap:6px;flex:1;min-width:0}
+.er .i .ct{font-size:12px}
+.er .i .ds{font-size:11px;color:#444;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.er .rt{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.er .am{font-size:12px;font-weight:700}
+.er .rm{background:none;border:none;color:#ccc;font-size:14px;cursor:pointer;padding:0}
+.nv{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding:0 2px}
+.nv button{background:none;border:1px solid #eee;border-radius:7px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer}
+.nv .dis{color:#ddd;cursor:default}
+.nv .mid{font-size:10px;color:#ddd}
+.cfg-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;font-size:13px}
+.cfg-row input{width:70px;font-size:13px;padding:4px 6px;border:2px solid #ddd;border-radius:6px;text-align:right}
+.cfg-row button{background:#EE352E;color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer}
+.cfg-row .lbl{font-weight:700}
+</style>
+</head>
+<body>
+<div id="app"><div style="display:flex;align-items:center;justify-content:center;height:100vh"><span style="color:#999;font-size:14px">Cargando…</span></div></div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+// ═══ FIREBASE INIT ═══
+firebase.initializeApp({
+  apiKey:"AIzaSyBjmQ0gs8gu0NBbLDyzKnUW8KaMYwKuMG8",
+  authDomain:"nyc-trip-f63fe.firebaseapp.com",
+  databaseURL:"https://nyc-trip-f63fe-default-rtdb.firebaseio.com",
+  projectId:"nyc-trip-f63fe",
+  storageBucket:"nyc-trip-f63fe.firebasestorage.app",
+  messagingSenderId:"987058268726",
+  appId:"1:987058268726:web:db3282705bfc6073c84697"
+});
+const db=firebase.database();
+const ref=db.ref("trip");
+let fbConnected=false;
+
+// Connection state
+db.ref(".info/connected").on("value",snap=>{fbConnected=!!snap.val();R()});
+
+// ═══ DATA ═══
+const INIT=[
+{id:"dom",short:"D",label:"Dom 23",title:"Llegada",subtitle:"JFK 22h30 → Manhattan",color:"#808183",stops:[
+{id:"s0",time:"22:30",name:"Aeropuerto JFK",note:"Taxi tarifa plana (~$70) o AirTrain + metro E/A. OMNY: tope semanal ~$34.",cid:"17028024512003641840"}]},
+{id:"lun",short:"L",label:"Lun 24",title:"Downtown + Vintage",subtitle:"A pie, de este a oeste",color:"#FF6319",stops:[
+{id:"s1",time:"09:00",name:"Katz's Delicatessen",note:"Abre a las 8h. Pastrami on rye.",cid:"3545819340560108778"},
+{id:"s2",time:"11:00",name:"Chinatown",note:"Free tour de las 11h.",cid:"14960416387370004753"},
+{id:"s3",time:"13:15",name:"James Veloria",note:"2ª planta, centro comercial chino, East Broadway.",cid:"7132699675102208657",tag:"Vintage"},
+{id:"s4",time:"14:00",name:"SoHo",note:"Kith, Noah, WGACA.",cid:"14857151187958954008",tag:"Concepto"},
+{id:"s5",time:"15:15",name:"Aimé Leon Dore",note:"Café dentro. Lista espera 15–30 min.",cid:"463342886626966140",tag:"Concepto"},
+{id:"s6",time:"16:15",name:"East Village",note:"Tokio 7 y L Train Vintage.",cid:"8046021528142178540",tag:"Vintage"},
+{id:"s7",time:"17:15",name:"Union Square Greenmarket",note:"Lunes hasta las 18h.",cid:"2182310334134283682"},
+{id:"s8",time:"18:00",name:"Washington Square Park",note:"West Village: Perry, Bank, Grove St.",cid:"18041805897612033560"},
+{id:"s9",time:"19:00",name:"Chelsea Market",note:"Los Tacos No.1. Artists & Fleas.",cid:"9106689863996784802"},
+{id:"s10",time:"20:15",name:"The High Line",note:"Hacia el norte con la última luz.",cid:"6358908248867355793"},
+{id:"s11",time:"21:15",name:"Vessel · Hudson Yards",note:"BlackRock (50 Hudson Yards) al lado.",cid:"4704879639042284992"}]},
+{id:"mar",short:"M",label:"Mar 25",title:"Midtown",subtitle:"De norte a sur por la 5ª Avenida",color:"#00933C",stops:[
+{id:"s12",time:"08:30",name:"Lexington Candy Shop",note:"Luncheonette de 1925.",cid:"6797093181834983300"},
+{id:"s13",time:"09:45",name:"Central Park · bicis",note:"Bethesda, Bow Bridge, The Mall.",cid:"13393458397880860953"},
+{id:"s14",time:"12:15",name:"St. Patrick's Cathedral",note:"Gratis.",cid:"9826911792922012251"},
+{id:"s15",time:"13:00",name:"Rockefeller Center",note:"Diamond District (47th).",cid:"3734087314244816034"},
+{id:"s16",time:"14:00",name:"Bryant Park + NYPL",note:"Urbanspace Vanderbilt. Rose Reading Room.",cid:"13014470228627157415"},
+{id:"s17",time:"15:45",name:"Grand Central Terminal",note:"Enfrente, nueva sede JPMorgan.",cid:"3986032562251317387"},
+{id:"s18",time:"16:30",name:"Dover Street Market",note:"7 plantas CdG. Martes cierra 18h.",cid:"8110137794994551665",tag:"Concepto"},
+{id:"s19",time:"17:45",name:"Flatiron Building",note:"Foto desde la 23 con Broadway.",cid:"16008714640967092518"},
+{id:"s20",time:"18:30",name:"Empire State Building",note:"Solo por fuera.",cid:"15074921902713971043"},
+{id:"s21",time:"20:00",name:"Times Square",note:"Lotería digital Broadway.",cid:"6132018978369701678"}]},
+{id:"mie",short:"X",label:"Mié 26",title:"Brooklyn + WTC",subtitle:"Metro L + Citi Bike waterfront",color:"#6CBE45",stops:[
+{id:"s22",time:"09:30",name:"Williamsburg",note:"Bedford Av. Whole Foods precios.",cid:"9401811955502929772"},
+{id:"s23",time:"10:30",name:"Awoke Vintage",note:"N 5th St. Stella Dallas / 10 Ft.",cid:"10851435341317214608",tag:"Vintage"},
+{id:"s24",time:"11:45",name:"Bushwick Collective",note:"L→Jefferson. Murales + vintage al peso.",cid:"16878924649239712893",tag:"Vintage"},
+{id:"s25",time:"14:00",name:"Front General Store",note:"Citi Bike Kent Av (~5 km).",cid:"2462648264015609013",tag:"Vintage"},
+{id:"s26",time:"15:00",name:"Dumbo",note:"Foto Washington St. Juliana's.",cid:"14893924226174011843"},
+{id:"s27",time:"16:00",name:"Brooklyn Heights Promenade",note:"Versión brownstone Brooklyn.",cid:"13697143868944734919"},
+{id:"s28",time:"16:45",name:"Puente de Brooklyn",note:"A pie, 30–40 min.",cid:"2677070821511218780"},
+{id:"s29",time:"17:30",name:"City Hall Park",note:"Puente desemboca aquí.",cid:"10642384673553397287"},
+{id:"s30",time:"17:45",name:"9/11 Memorial & Museum",note:"Franja ~17:30 online. Oculus al lado.",cid:"17595788891692801773"}]},
+{id:"jue",short:"J",label:"Jue 27",title:"MoMA y atardecer",subtitle:"Correr, arte, teleférico, sunset",color:"#FCCC0A",darkText:true,stops:[
+{id:"s31",time:"07:00",name:"Central Park · Reservoir",note:"Correr con los locales.",cid:"13393458397880860953"},
+{id:"s32",time:"10:30",name:"MoMA",note:"Entrada online. Design Store.",cid:"16906389583988522837"},
+{id:"s33",time:"14:30",name:"Greenacre Park",note:"Pocket park con cascada.",cid:"15512705333104853483"},
+{id:"s34",time:"15:45",name:"Roosevelt Island Tramway",note:"Telecabina. Four Freedoms Park.",cid:"339584210342851263"},
+{id:"s35",time:"19:00",name:"Top of the Rock",note:"Sunset ~19h40.",cid:"15715278180902225440"}]},
+{id:"vie",short:"V",label:"Vie 28",title:"Estatua + Yankees",subtitle:"De Battery Park al Bronx",color:"#EE352E",stops:[
+{id:"s36",time:"08:30",name:"Statue City Cruises",note:"Primera salida.",cid:"5495247707660098926"},
+{id:"s37",time:"09:30",name:"Estatua de la Libertad",note:"+ Ellis Island (mismo billete).",cid:"4667599994556318251"},
+{id:"s38",time:"13:00",name:"Smorgasburg WTC",note:"Viernes, Fulton con Church.",cid:"3709205708493885121"},
+{id:"s39",time:"15:00",name:"Flamekeepers Hat Club",note:"Metro 2/3 a 125th St.",cid:"17055405252832110891",tag:"Harlem"},
+{id:"s40",time:"16:00",name:"Apollo Theater · Harlem",note:"Sylvia's o Red Rooster.",cid:"2075482377686932525"},
+{id:"s41",time:"18:00",name:"Yankee Stadium",note:"Yankees vs Red Sox 19h.",cid:"5278434101489704456"}]},
+{id:"sab",short:"S",label:"Sáb 29",title:"Chelsea y vuelo",subtitle:"Todo en 20 min a pie · JFK ~19h30",color:"#0039A6",stops:[
+{id:"s42",time:"09:30",name:"Chelsea Flea",note:"Sáb 8–17h, W 25th St.",cid:"11589969864041405282",tag:"Mercadillo"},
+{id:"s43",time:"11:00",name:"Whitney Museum",note:"Terrazas al Hudson.",cid:"14285227776020412553"},
+{id:"s44",time:"13:30",name:"Little Island",note:"Parque flotante gratis.",cid:"13591824022339516336"},
+{id:"s45",time:"14:30",name:"Chelsea Market",note:"Brunch + compras. Artists & Fleas.",cid:"9106689863996784802"},
+{id:"s46",time:"20:00",name:"Aeropuerto JFK",note:"Vuelo 23h.",cid:"17028024512003641840"}]}
+];
+const EC=[
+{id:"food",label:"🍕 Comida",color:"#FF6319"},{id:"transport",label:"🚇 Transporte",color:"#0039A6"},
+{id:"tickets",label:"🎟️ Entradas",color:"#00933C"},{id:"shopping",label:"🛍️ Compras",color:"#EE352E"},
+{id:"lodging",label:"🏨 Hotel",color:"#6CBE45"},{id:"other",label:"💰 Otro",color:"#808183"}
+];
+const BK=[
+{id:"bk0",item:"Yankees vs Red Sox (vie 28, 19h)",u:1},{id:"bk1",item:"Top of the Rock — sunset (jue 27)"},
+{id:"bk2",item:"Statue City Cruises (vie 28)"},{id:"bk3",item:"Pedestal/corona Estatua"},
+{id:"bk4",item:"MoMA — franja (jue 27)"},{id:"bk5",item:"9/11 Museum — ~17:30 (mié 26)"},
+{id:"bk6",item:"Reserva Federal (comprobar)"}
+];
+const DM={"2026-08-23":"dom","2026-08-24":"lun","2026-08-25":"mar","2026-08-26":"mie","2026-08-27":"jue","2026-08-28":"vie","2026-08-29":"sab"};
+
+let S;let _n=200;let _skipFb=false;
+
+function defaults(){return{days:JSON.parse(JSON.stringify(INIT)),ck:{},ex:{},bk:{},cfg:{eur:0.92},pn:null,ad:0,nid:200}}
+function init(){S=defaults()}
+
+// ═══ FIREBASE SYNC ═══
+// Write shared data to Firebase (everything except UI-only state)
+function fbWrite(){
+  if(_skipFb)return;
+  const shared={days:S.days,ck:S.ck,ex:S.ex,bk:S.bk,cfg:S.cfg,nid:S.nid};
+  ref.set(shared).catch(()=>{});
+}
+
+// Listen for changes from Firebase
+function fbListen(){
+  ref.on("value",snap=>{
+    const d=snap.val();
+    if(!d||!d.days)return;
+    _skipFb=true;
+    S.days=d.days;S.ck=d.ck||{};S.ex=d.ex||{};S.bk=d.bk||{};S.cfg=d.cfg||{eur:0.92};
+    if(d.nid)_n=d.nid;S.nid=_n;
+    _skipFb=false;
+    R();
+  });
+}
+
+// ═══ HELPERS ═══
+function gi(){return"u"+(_n++)}
+function tbd(id){return(S.ex[id]||[]).reduce((s,e)=>s+e.amount,0)}
+function gt(){return S.days.reduce((s,d)=>s+tbd(d.id),0)}
+function tbc(c){return S.days.reduce((s,d)=>s+(S.ex[d.id]||[]).filter(e=>e.cat===c).reduce((a,e)=>a+e.amount,0),0)}
+function x(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function autoDay(){const now=new Date(),key=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0"),did=DM[key];if(!did)return;const idx=S.days.findIndex(d=>d.id===did);if(idx>=0)S.ad=idx}
+function nowMins(){const nyc=new Date(new Date().toLocaleString("en-US",{timeZone:"America/New_York"}));return nyc.getHours()*60+nyc.getMinutes()}
+function timeToMins(t){const p=t.match(/(\d+)[:\.](\d+)/);if(!p)return-1;return parseInt(p[1])*60+parseInt(p[2])}
+function minsToStr(m){return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")}
+function isToday(){const now=new Date(),key=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");return DM[key]===S.days[S.ad]?.id}
+
+// ═══ RENDER ═══
+function R(){
+const d=S.days[S.ad],ts=S.days.reduce((s,dd)=>s+dd.stops.length,0),tc=Object.keys(S.ck).length,dc=d.stops.filter(s=>S.ck[s.id]).length,dt=tbd(d.id);
+const today=isToday(),nm=today?nowMins():-1;
+let h=`<div style="max-width:480px;margin:0 auto">`;
+
+// HEADER
+h+=`<div class="hdr"><div class="hdr-r"><div><div class="kk">NYC · 23–29 ago 2026 <span class="sync-dot ${fbConnected?"sync-on":"sync-off"}"></span></div><h1>Tu itinerario</h1></div><div class="bs">
+<button class="b ${S.pn==="bk"?"on":""}" onclick="tp('bk')">${S.pn==="bk"?"✕":"⚡Reservas"}</button>
+<button class="b ${S.pn==="ex"?"on":""}" onclick="tp('ex')">${S.pn==="ex"?"✕":"💸Gastos"}</button>
+<button class="b ${S.pn==="cfg"?"on":""}" onclick="tp('cfg')">${S.pn==="cfg"?"✕":"⚙️"}</button>
+</div></div><div class="pb"><div class="t"><div class="f" style="width:${(tc/Math.max(ts,1))*100}%"></div></div><span>${tc}/${ts}</span></div></div>`;
+
+// BOOKINGS
+if(S.pn==="bk"){h+=`<div class="pn pn-bk"><h3>Reservas por urgencia:</h3>`;BK.forEach(b=>{const done=S.bk[b.id];h+=`<div class="bi ${done?"done-bk":""}" onclick="tbk('${b.id}')"><span>${b.u?"🔴":"🟡"}</span><span>${done?"☑":"☐"} ${x(b.item)}</span></div>`});h+=`</div>`}
+
+// EXPENSES
+if(S.pn==="ex"){const g=gt(),mx=Math.max(...S.days.map(dd=>tbd(dd.id)),1),rate=S.cfg?.eur||0;
+h+=`<div class="pn pn-ex"><div class="et"><span class="l">Total viaje</span><div><span class="v">$${g.toFixed(2)}</span>`;
+if(rate>0)h+=`<span class="v2">~€${(g*rate).toFixed(2)}</span>`;
+h+=`</div></div><div class="eb">`;S.days.forEach(dd=>{const t=tbd(dd.id);h+=`<div class="c"><div class="br"><div class="bf" style="height:${Math.max((t/mx)*100,t>0?8:0)}%;background:${dd.color}"></div></div><span class="dl">${dd.short}</span></div>`});h+=`</div>`;
+h+=`<div class="ecs">`;EC.forEach(c=>{const t=tbc(c.id);if(t>0)h+=`<span style="background:${c.color}18;color:${c.color}">${c.label.split(" ")[0]} $${t.toFixed(0)}</span>`});h+=`</div>`;
+h+=`<div class="ei"><input class="a" type="number" inputmode="decimal" placeholder="$" id="ea"><input class="d" type="text" placeholder="Concepto..." id="ed" onkeydown="if(event.key==='Enter')ae()"><button class="btn" onclick="ae()">+</button></div>`;
+h+=`<div class="ecb">`;EC.forEach(c=>{const sl=c.id===(S._ec||"food");h+=`<button style="border:2px solid ${sl?c.color:"#e8e8e8"};background:${sl?c.color+"18":"transparent"};color:${sl?c.color:"#999"}" onclick="S._ec='${c.id}';R()">${x(c.label)}</button>`});h+=`</div>`;
+h+=`<div class="el">`;S.days.forEach(dd=>{const exs=S.ex[dd.id]||[];if(!exs.length)return;h+=`<div class="edl" style="color:${dd.color}">${dd.label} · $${tbd(dd.id).toFixed(2)}</div>`;exs.forEach((e,i)=>{const ct=EC.find(c=>c.id===e.cat);h+=`<div class="er"><div class="i"><span class="ct">${ct?ct.label.split(" ")[0]:""}</span><span class="ds">${x(e.desc)}</span></div><div class="rt"><span class="am">$${e.amount.toFixed(2)}</span><button class="rm" onclick="re('${dd.id}',${i})">×</button></div></div>`})});
+if(g===0)h+=`<div style="text-align:center;padding:12px 0;font-size:12px;color:#ccc">Añade tu primer gasto</div>`;h+=`</div></div>`}
+
+// SETTINGS
+if(S.pn==="cfg"){h+=`<div class="pn pn-cfg"><h3>Ajustes</h3>`;
+h+=`<div class="cfg-row"><span class="lbl">1 USD = EUR</span><input type="number" inputmode="decimal" value="${S.cfg?.eur||0.92}" onchange="S.cfg.eur=parseFloat(this.value)||0;fbWrite();R()"></div>`;
+h+=`<div class="cfg-row"><span class="lbl">Sync</span><span style="font-size:12px">${fbConnected?'🟢 Conectado en tiempo real':'🔴 Sin conexión (modo local)'}</span></div>`;
+h+=`<div class="cfg-row" style="border-bottom:none"><span class="lbl" style="color:#EE352E">Resetear todo</span><button onclick="if(confirm('¿Seguro? Se borran checks, gastos y paradas añadidas')){S=defaults();fbWrite();R()}">Resetear</button></div>`;
+h+=`</div>`}
+
+// PILLS
+h+=`<div class="pls" id="pls">`;S.days.forEach((dd,i)=>{const a=i===S.ad,dn=dd.stops.filter(s=>S.ck[s.id]).length,cm=dn===dd.stops.length&&dd.stops.length>0,fg=a?(dd.darkText?"#111":"#fff"):dd.color;
+const it=(()=>{const now=new Date(),key=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");return DM[key]===dd.id})();
+h+=`<button class="pl" onclick="gd(${i})" style="opacity:${cm&&!a?.45:1}"><div class="ci" style="background:${a?dd.color:"transparent"};border:${a?"none":"2.5px solid "+dd.color};color:${fg}">${cm?"✓":dd.short}</div><span class="lb" style="color:${a?"#111":"#aaa"}">${dd.label}</span>`;
+if(it&&!a)h+=`<div style="position:absolute;top:0;right:2px;width:6px;height:6px;border-radius:50%;background:#EE352E"></div>`;
+if(dn>0&&!cm)h+=`<div class="mc"><div class="mf" style="width:${(dn/dd.stops.length)*100}%;background:${dd.color}"></div></div>`;h+=`</button>`});h+=`</div>`;
+
+// DAY CONTENT
+h+=`<div class="dc" id="dc"><div class="dh"><div><h2 style="color:${d.color}">${x(d.title)}</h2><p class="su">${x(d.subtitle)}</p>`;
+if(dt>0){h+=`<span style="font-size:10px;font-weight:700;color:${d.color}">💸 $${dt.toFixed(2)}`;if(S.cfg?.eur>0)h+=` · €${(dt*S.cfg.eur).toFixed(2)}`;h+=`</span>`}
+h+=`</div>`;if(dc>0)h+=`<button style="background:none;border:1px solid #ddd;border-radius:6px;padding:3px 8px;font-size:9px;font-weight:700;color:#aaa;cursor:pointer" onclick="rd()">Desmarcar</button>`;
+h+=`</div><div class="dp"><div class="t"><div class="f" style="width:${(dc/Math.max(d.stops.length,1))*100}%;background:${d.color}"></div></div><span>${dc}/${d.stops.length}</span></div>`;
+
+// STOPS
+let ni=false;
+d.stops.forEach((s,i)=>{const dn=!!S.ck[s.id],im=S._mv&&S._mv.d===S.ad&&S._mv.i===i,ie=S._ed===s.id,sm2=timeToMins(s.time),nx2=i<d.stops.length-1?timeToMins(d.stops[i+1].time):-1;
+if(today&&!ni&&nm>=0&&sm2>=0&&nm<sm2){h+=`<div class="now-line"><div class="now-dot"></div><span class="now-lbl">Ahora · ${minsToStr(nm)}</span></div>`;ni=true}
+h+=`<div class="st ${dn?"dn":""}"><div class="le"><span class="tm">${x(s.time)}</span>`;
+h+=`<button class="ck" style="border:${dn?"none":"2.5px solid "+d.color};background:${dn?d.color:"transparent"}" onclick="tc('${s.id}')">`;
+if(dn)h+=`<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9L9.5 3.5" stroke="${d.darkText?"#111":"#fff"}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+h+=`</button>`;if(!dn&&d.stops.length>1){h+=`<div class="ro">`;if(i>0)h+=`<button onclick="ro(${i},${i-1})">▲</button>`;if(i<d.stops.length-1)h+=`<button onclick="ro(${i},${i+1})">▼</button>`;h+=`</div>`}
+h+=`</div><div class="ri">`;
+if(!ie){h+=`<div class="nr">`;
+if(s.cid)h+=`<a class="nm" href="https://maps.google.com/?cid=${s.cid}" target="_blank" rel="noopener" style="text-decoration:${dn?"line-through":"none"};border-bottom:${dn?"none":"2px solid "+d.color}">${x(s.name)}</a>`;
+else h+=`<span class="nm" style="text-decoration:${dn?"line-through":"none"};border-bottom:${dn?"none":"2px solid "+d.color}">${x(s.name)}</span>`;
+if(s.tag)h+=`<span class="tg" style="background:${d.color};color:${d.darkText?"#111":"#fff"}">${x(s.tag)}</span>`;
+if(s.custom)h+=`<span class="cst">TUYO</span>`;h+=`</div>`;
+if(s.note)h+=`<p class="nt">${x(s.note)}</p>`;
+if(s.link)h+=`<div class="lnk">🔗 <a href="${x(s.link)}" target="_blank" rel="noopener">Reserva / enlace</a></div>`;
+if(!dn){h+=`<div class="ac">`;
+if(s.cid)h+=`<button class="dir" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.name)}&destination_place_id=${s.cid}&travelmode=transit','_blank')">🧭 llegar</button>`;
+h+=`<button onclick="se('${s.id}',${i})">✏️ editar</button><button onclick="smv(${i})">📦 mover</button><button class="dl" onclick="rs(${i})">🗑️</button></div>`}
+if(im){h+=`<div class="mv" style="border:2px solid ${d.color}"><div class="tt">Mover a:</div><div class="op">`;
+S.days.forEach((dd,di)=>{if(di!==S.ad)h+=`<button style="background:${dd.color};color:${dd.darkText?"#111":"#fff"}" onclick="ms(${di})">${dd.label}</button>`});
+h+=`<button style="background:#eee;color:#888" onclick="cm()">Cancelar</button></div></div>`}
+}else{const ed=S._edd||{};
+h+=`<div class="ef"><div class="r"><input style="flex:0 0 50px;border:2px solid ${d.color}" value="${x(ed.time)}" oninput="S._edd.time=this.value" placeholder="Hora"><input style="flex:1;border:2px solid ${d.color};font-weight:700;min-width:0" value="${x(ed.name)}" oninput="S._edd.name=this.value" placeholder="Nombre"></div><input style="border:2px solid #ddd" value="${x(ed.note)}" oninput="S._edd.note=this.value" placeholder="Nota..."><input style="border:2px solid #ddd" value="${x(ed.tag)}" oninput="S._edd.tag=this.value" placeholder="Etiqueta"><input style="border:2px solid #ddd" value="${x(ed.link)}" oninput="S._edd.link=this.value" placeholder="🔗 URL reserva"><div class="bb"><button style="background:${d.color};color:${d.darkText?"#111":"#fff"}" onclick="sve(${i})">Guardar</button><button style="background:#eee;color:#888" onclick="ce()">Cancelar</button></div></div>`}
+h+=`</div></div>`;
+if(today&&!ni&&nm>=0&&sm2>=0&&nm>=sm2&&(nx2<0||nm<nx2)){h+=`<div class="now-line"><div class="now-dot"></div><span class="now-lbl">Ahora · ${minsToStr(nm)}</span></div>`;ni=true}
+});
+if(today&&!ni&&nm>=0)h+=`<div class="now-line"><div class="now-dot"></div><span class="now-lbl">Ahora · ${minsToStr(nm)}</span></div>`;
+
+// ADD STOP
+if(S._ag){h+=`<div class="af"><div class="tt" style="color:${d.color}">+ Nueva parada en ${d.label}</div><div class="r"><input style="flex:0 0 58px;border:2px solid ${d.color}" id="nt" placeholder="Hora"><input style="flex:1;border:2px solid ${d.color};font-weight:700;min-width:0" id="nn" placeholder="Nombre" onkeydown="if(event.key==='Enter')as()"></div><input class="fl" style="border:2px solid #ddd" id="nno" placeholder="Nota (opcional)"><input class="fl" style="border:2px solid #ddd" id="nlk" placeholder="🔗 URL reserva (opcional)"><div class="bb"><button style="background:${d.color};color:${d.darkText?"#111":"#fff"};font-size:12px" onclick="as()">Añadir</button><button style="background:#eee;color:#888;font-size:12px" onclick="S._ag=false;R()">Cancelar</button></div></div>`}
+else h+=`<button class="ab" onclick="S._ag=true;R()">+ Añadir parada a ${x(d.label)}</button>`;
+
+const pv=S.ad>0,nxx=S.ad<S.days.length-1;
+h+=`<div class="nv"><button class="${pv?"":"dis"}" onclick="${pv?"gd("+(S.ad-1)+")":""}">← ${pv?S.days[S.ad-1].label:""}</button><span class="mid">desliza</span><button class="${nxx?"":"dis"}" onclick="${nxx?"gd("+(S.ad+1)+")":""}">${nxx?S.days[S.ad+1].label:""} →</button></div>`;
+h+=`</div></div>`;
+document.getElementById("app").innerHTML=h;
+const p=document.getElementById("pls");if(p&&p.children[S.ad])p.children[S.ad].scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+}
+
+// ═══ ACTIONS ═══
+function tp(p){S.pn=S.pn===p?null:p;R()}
+function gd(i){S.ad=i;S._ag=false;S._mv=null;S._ed=null;R()}
+function tc(id){S.ck[id]?delete S.ck[id]:S.ck[id]=true;fbWrite();R()}
+function rd(){S.days[S.ad].stops.forEach(s=>delete S.ck[s.id]);fbWrite();R()}
+function tbk(id){S.bk[id]?delete S.bk[id]:S.bk[id]=true;fbWrite();R()}
+function ro(f,t){const st=S.days[S.ad].stops;const[it]=st.splice(f,1);st.splice(t,0,it);fbWrite();R()}
+function smv(i){S._mv={d:S.ad,i};R()}
+function cm(){S._mv=null;R()}
+function ms(di){const m=S._mv;if(!m)return;const st=S.days[m.d].stops.splice(m.i,1)[0];S.days[di].stops.push(st);S._mv=null;fbWrite();R()}
+function rs(i){if(!confirm("¿Quitar esta parada?"))return;S.days[S.ad].stops.splice(i,1);fbWrite();R()}
+function se(sid,i){const s=S.days[S.ad].stops[i];S._ed=sid;S._edd={time:s.time,name:s.name,note:s.note||"",tag:s.tag||"",link:s.link||""};R()}
+function ce(){S._ed=null;R()}
+function sve(i){const s=S.days[S.ad].stops[i],e=S._edd;s.time=e.time;s.name=e.name;s.note=e.note;s.tag=e.tag||undefined;s.link=e.link||undefined;S._ed=null;fbWrite();R()}
+function as(){const t=document.getElementById("nt").value,n=document.getElementById("nn").value,no=document.getElementById("nno").value,lk=document.getElementById("nlk")?.value||"";if(!n.trim())return;S.days[S.ad].stops.push({id:gi(),time:t||"—",name:n.trim(),note:no.trim(),link:lk.trim()||undefined,cid:"",custom:true});S._ag=false;S.nid=_n;fbWrite();R()}
+function ae(){const ea=document.getElementById("ea"),ed=document.getElementById("ed"),a=parseFloat((ea.value||"").replace(",","."));if(!a||a<=0)return;const c=S._ec||"food",ds=ed.value||EC.find(e=>e.id===c)?.label||"",did=S.days[S.ad].id;if(!S.ex[did])S.ex[did]=[];S.ex[did].push({amount:a,desc:ds,cat:c,ts:Date.now()});fbWrite();R()}
+function re(did,i){S.ex[did].splice(i,1);if(!S.ex[did].length)delete S.ex[did];fbWrite();R()}
+
+// SWIPE
+let tx=0,ty=0;
+document.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY});
+document.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.3){if(dx<0&&S.ad<S.days.length-1)gd(S.ad+1);if(dx>0&&S.ad>0)gd(S.ad-1)}});
+
+// ═══ INIT ═══
+init();autoDay();R();fbListen();
+setInterval(()=>{if(isToday())R()},60000);
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
